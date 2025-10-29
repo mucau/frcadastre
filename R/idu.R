@@ -315,8 +315,7 @@ idu_rename_in_df <- function(df, new_name) {
 #'
 #' @param idu A character vector of IDU codes (14-character format).
 #'   All codes are validated before data retrieval.
-#' @param layer Optional character string specifying the cadastral layer to retrieve.
-#'   If `NULL`, all available layers are returned.
+#' @param layer A character vector of layers to retrieve.
 #' @param verbose Logical. If `TRUE`, prints progress messages during data retrieval.
 #'
 #' @return
@@ -345,7 +344,7 @@ idu_rename_in_df <- function(df, new_name) {
 #' @keywords internal
 #'
 get_etalab_data_by_idu <- function(idu,
-                                   layer = NULL,
+                                   layer,
                                    verbose = TRUE) {
   idu_check(idu)
   idu_parts <- idu_split(idu)

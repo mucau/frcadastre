@@ -4,14 +4,13 @@
 \alias{get_etalab_data_by_idu}
 \title{Retrieve Etalab cadastral data for given IDUs}
 \usage{
-get_etalab_data_by_idu(idu, layer = NULL, verbose = TRUE)
+get_etalab_data_by_idu(idu, layer, verbose = TRUE)
 }
 \arguments{
 \item{idu}{A character vector of IDU codes (14-character format).
 All codes are validated before data retrieval.}
 
-\item{layer}{Optional character string specifying the cadastral layer to retrieve.
-If \code{NULL}, all available layers are returned.}
+\item{layer}{A character vector of layers to retrieve.}
 
 \item{verbose}{Logical. If \code{TRUE}, prints progress messages during data retrieval.}
 }
