@@ -160,18 +160,18 @@ get_pci_urls <- function(x,
 #' @examples
 #' \dontrun{
 #' # Download all sheets for a commune
-#' pci_data <- get_pci_data("72187")
+#' pci_data <- get_pci_raw("72187")
 #'
 #' # Download a specific sheet
-#' pci_data <- get_pci_data("72181000AB01")
+#' pci_data <- get_pci_raw("72181000AB01")
 #'
 #' # Multiple communes and sheets
-#' pci_data <- get_pci_data(c("72187", "72181000AB01"))
+#' pci_data <- get_pci_raw(c("72187", "72181000AB01"))
 #' }
 #'
 #' @export
 #'
-get_pci_data <- function(x,
+get_pci_raw <- function(x,
                          millesime = "latest",
                          format = "edigeo",
                          extract_dir = NULL,

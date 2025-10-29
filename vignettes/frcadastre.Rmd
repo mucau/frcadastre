@@ -114,7 +114,7 @@ tm_shape(borne) +
 
 ## PCI data
 
-Old raw datasets are also available from server. The `get_pci_data()`
+Old raw datasets are also available from server. The `get_pci_raw()`
 function allows access to **PCI** raw data. Datas are also producted by
 date (millesime) in `DXF` and `EDIGEO` format.
 

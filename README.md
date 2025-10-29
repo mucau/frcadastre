@@ -77,8 +77,8 @@ The **frcadastre** R package aims to:
 For a quickly use, you can run directly `get_etalab()` to get `sf` objects from PCI Etalab processed data.
 
 If you want to access the initial (more complete) raw data, you can use:
-- `get_pci_data()`: donwload and dowload PCI data (in DXF or EDIGEO format);
-- `get_etalab_data()`: donwload and dowload PCI Etalab data (in compressed GEOJSON format).
+- `get_pci_raw()`: donwload and dowload PCI data (in DXF or EDIGEO format);
+- `get_etalab_raw()`: donwload and dowload PCI Etalab data (in compressed GEOJSON format).
 
 You have also sommes utilitary functions to manage IDU for cadastral parcelles.
 
@@ -95,7 +95,7 @@ commune <- get_etalab(72187, data="communes")
 parcels <- get_etalab(72187, data="parcelles")
 
 # And sommes raw data ...
-borne <- get_etalab_data(72187, data="borne")
+borne <- get_etalab_raw(72187, data="borne")
 ```
 
 ### Problems and Issues

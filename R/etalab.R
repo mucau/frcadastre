@@ -228,15 +228,15 @@ get_etalab_urls <- function(commune,
 #' @examples
 #' \dontrun{
 #' # Download and read parcels and lieux_dits for one commune
-#' get_etalab_data("72187", c("parcelles", "lieux_dits"))
+#' get_etalab_raw("72187", c("parcelles", "lieux_dits"))
 #'
 #' # Multiple communes with pairwise layers
-#' get_etalab_data(c("72187", "72181"), list(c("parcelles", "lieux_dits"), c("commune")))
+#' get_etalab_raw(c("72187", "72181"), list(c("parcelles", "lieux_dits"), c("commune")))
 #' }
 #'
 #' @export
 #'
-get_etalab_data <- function(commune,
+get_etalab_raw <- function(commune,
                             data,
                             millesime = "latest",
                             extract_dir = NULL,

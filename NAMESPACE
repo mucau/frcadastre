@@ -2,10 +2,10 @@
 
 export(get_data_millesimes)
 export(get_etalab)
-export(get_etalab_data)
 export(get_etalab_layernames)
-export(get_pci_data)
+export(get_etalab_raw)
 export(get_pci_feuilles)
+export(get_pci_raw)
 export(idu_build)
 export(idu_check)
 export(idu_detect_in_df)

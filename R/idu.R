@@ -332,10 +332,10 @@ idu_rename_in_df <- function(df, new_name) {
 #' @examples
 #' \dontrun{
 #' # Retrieve data for a single IDU
-#' get_etalab_data_by_idu("72181000AB0001")
+#' get_etalab_raw_by_idu("72181000AB0001")
 #'
 #' # Retrieve data for multiple IDUs within the same commune
-#' get_etalab_data_by_idu(
+#' get_etalab_raw_by_idu(
 #'   c("72181000AB0001", "72181000AB0002"),
 #'   layer = "parcelles"
 #' )
@@ -343,7 +343,7 @@ idu_rename_in_df <- function(df, new_name) {
 #'
 #' @keywords internal
 #'
-get_etalab_data_by_idu <- function(idu,
+get_etalab_raw_by_idu <- function(idu,
                                    layer,
                                    verbose = TRUE) {
   idu_check(idu)
@@ -384,7 +384,7 @@ get_etalab_data_by_idu <- function(idu,
 #'
 idu_get_feuille <- function(idu, result_as_list = FALSE) {
   # Retrieve Etalab data
-  res <- get_etalab_data_by_idu(idu, "feuilles")
+  res <- get_etalab_raw_by_idu(idu, "feuilles")
 
   # Extract feuille codes
   feuilles <- res$data

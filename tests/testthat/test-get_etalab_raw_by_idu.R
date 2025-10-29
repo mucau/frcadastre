@@ -1,4 +1,4 @@
-test_that("get_etalab_data_by_idu() works offline with mocked dependencies", {
+test_that("get_etalab_raw_by_idu() works offline with mocked dependencies", {
   skip_if_not_installed("sf")
 
   # Fake IDU parts
@@ -19,7 +19,7 @@ test_that("get_etalab_data_by_idu() works offline with mocked dependencies", {
     idu_split = function(idu) fake_idu_parts,
     get_etalab = function(insee_codes, layer, verbose = TRUE) fake_sf,
     {
-      res <- get_etalab_data_by_idu(
+      res <- get_etalab_raw_by_idu(
         c("72181000AB0001", "72181000AB0002"),
         layer = "parcelles",
         verbose = TRUE
@@ -31,14 +31,14 @@ test_that("get_etalab_data_by_idu() works offline with mocked dependencies", {
 })
 
 
-test_that("get_etalab_data_by_idu() works online with httptest2", {
+test_that("get_etalab_raw_by_idu() works online with httptest2", {
   skip_if_not_installed("httptest2")
   skip_if_not_installed("sf")
 
-  httptest2::with_mock_dir("get_etalab_data_by_idu", {
+  httptest2::with_mock_dir("get_etalab_raw_by_idu", {
     # Single IDU - silent mode
     expect_silent({
-      res1 <- get_etalab_data_by_idu(
+      res1 <- get_etalab_raw_by_idu(
         "72181000AB0001",
         layer = "parcelles",
         verbose = FALSE
@@ -48,7 +48,7 @@ test_that("get_etalab_data_by_idu() works online with httptest2", {
 
     # Multiple IDUs - verbose mode
     expect_message({
-      res2 <- get_etalab_data_by_idu(
+      res2 <- get_etalab_raw_by_idu(
         c("72181000AB0001", "72181000AB0002"),
         layer = "parcelles",
         verbose = TRUE
@@ -59,11 +59,11 @@ test_that("get_etalab_data_by_idu() works online with httptest2", {
 })
 
 
-test_that("get_etalab_data_by_idu() stops on invalid IDUs", {
+test_that("get_etalab_raw_by_idu() stops on invalid IDUs", {
   skip_if_not_installed("sf")
 
   expect_error(
-    get_etalab_data_by_idu("7218100A", layer = "parcelles", verbose = TRUE),
+    get_etalab_raw_by_idu("7218100A", layer = "parcelles", verbose = TRUE),
     regexp = "Invalid IDU"
   )
 })
