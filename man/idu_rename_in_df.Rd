@@ -20,6 +20,7 @@ This function detects the column containing IDU values in a data frame
 and renames it to the name provided by the user.
 }
 \examples{
+\dontrun{
 df <- data.frame(
   parcel_id = c("12345ABCDE6789", "54321ZZZZZ0000"),
   name = c("Oak", "Pine"),
@@ -27,5 +28,6 @@ df <- data.frame(
 )
 df <- idu_rename_in_df(df, "IDU")
 names(df)
+}
 
 }

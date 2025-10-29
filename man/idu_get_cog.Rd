@@ -9,11 +9,13 @@ idu_get_cog(idu, loc = c("reg", "dep", "com"), cog_field = "NCC")
 \arguments{
 \item{idu}{A \code{character} vector of valid IDU codes.}
 
-\item{loc}{A \code{character} string specifying which location levels to include.
-One of \code{"reg"}, \code{"dep"}, or \code{"com"}.}
+\item{loc}{A \code{character} vector specifying which location levels to include.
+One or more of \code{"reg"}, \code{"dep"}, or \code{"com"}. Multiple values can be
+provided simultaneously (e.g., \code{loc = c("reg", "dep", "com")}).}
 
-\item{cog_field}{\code{character}. Défaut is \code{"NCC"}.
-The name of the field in the reference datasets to use.}
+\item{cog_field}{A single \code{character} string specifying the field name
+in the reference datasets to use for naming. Must be one of \code{"NCC"},
+\code{"NCCENR"}, or \code{"LIBELLE"}. Default is \code{"NCC"}.}
 }
 \value{
 A \code{data.frame} with the IDU split into its components and
@@ -29,5 +31,8 @@ corresponding region, department, and/or commune names.
 idu_get_cog(c("721870000A0001", "721870000A0002"))
 }
 
+}
+\seealso{
+\code{\link{commune_2025}}, \code{\link{departement_2025}}, \code{\link{region_2025}}
 }
 \keyword{internal}

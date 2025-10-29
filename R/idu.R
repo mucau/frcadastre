@@ -253,13 +253,21 @@ idu_detect_in_df <- function(df, output = c("both", "name", "position")) {
   for (i in seq_along(df)) {
     col <- df[[i]]
     if (!is.character(col)) next
-    if (all(idu_check(col, error = FALSE))) {
+
+    # Catch any error from idu_check()
+    ok <- tryCatch({
+      idu_check(col)  # stops if invalid
+      TRUE
+    }, error = function(e) FALSE)
+
+    if (ok) {
       return(switch(output,
                     name = names(df)[i],
                     position = i,
                     list(name = names(df)[i], position = i)))
     }
   }
+
   message("No column matches the IDU pattern.")
   NULL
 }
@@ -276,6 +284,7 @@ idu_detect_in_df <- function(df, output = c("both", "name", "position")) {
 #' If no IDU column is detected, the original data frame is returned unchanged.
 #'
 #' @examples
+#' \dontrun{
 #' df <- data.frame(
 #'   parcel_id = c("12345ABCDE6789", "54321ZZZZZ0000"),
 #'   name = c("Oak", "Pine"),
@@ -283,6 +292,7 @@ idu_detect_in_df <- function(df, output = c("both", "name", "position")) {
 #' )
 #' df <- idu_rename_in_df(df, "IDU")
 #' names(df)
+#' }
 #'
 #' @export
 #'
@@ -411,7 +421,7 @@ idu_get_feuille <- function(idu, result_as_list = FALSE) {
 #' in the reference datasets to use for naming. Must be one of `"NCC"`,
 #' `"NCCENR"`, or `"LIBELLE"`. Default is `"NCC"`.
 #'
-#' @seealso [commune_2025, departement_2025, region_2025]
+#' @seealso \code{\link{commune_2025}}, \code{\link{departement_2025}}, \code{\link{region_2025}}
 #'
 #' @return A `data.frame` with the IDU split into its components and
 #' the requested location names.

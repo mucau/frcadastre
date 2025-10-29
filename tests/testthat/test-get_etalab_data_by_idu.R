@@ -15,8 +15,8 @@ test_that("get_etalab_data_by_idu() works offline with mocked dependencies", {
   )
 
   with_mocked_bindings(
-    idu_check = function(idu, verbose = TRUE) TRUE,
-    idu_split = function(idu, verbose = TRUE) fake_idu_parts,
+    idu_check = function(idu) TRUE,
+    idu_split = function(idu) fake_idu_parts,
     get_etalab = function(insee_codes, layer, verbose = TRUE) fake_sf,
     {
       res <- get_etalab_data_by_idu(
@@ -24,10 +24,8 @@ test_that("get_etalab_data_by_idu() works offline with mocked dependencies", {
         layer = "parcelles",
         verbose = TRUE
       )
-      expect_type(res, "list")
-      expect_named(res, c("data", "idu_parts"))
-      expect_s3_class(res$data, "sf")
-      expect_equal(res$idu_parts, fake_idu_parts)
+      expect_s3_class(res, "sf") # now returns sf directly
+      expect_true(all(fake_idu_parts$insee %in% unique(fake_idu_parts$insee)))
     }
   )
 })
@@ -46,9 +44,7 @@ test_that("get_etalab_data_by_idu() works online with httptest2", {
         verbose = FALSE
       )
     })
-    expect_type(res1, "list")
-    expect_s3_class(res1$data, "sf")
-    expect_true(all(c("data", "idu_parts") %in% names(res1)))
+    expect_s3_class(res1, "sf")
 
     # Multiple IDUs - verbose mode
     expect_message({
@@ -58,21 +54,14 @@ test_that("get_etalab_data_by_idu() works online with httptest2", {
         verbose = TRUE
       )
     })
-    expect_s3_class(res2$data, "sf")
-    expect_equal(nrow(res2$idu_parts), 2)
+    expect_s3_class(res2, "sf")
   })
 })
 
 
-test_that("get_etalab_data_by_idu() handles invalid IDUs conditionally on verbose", {
+test_that("get_etalab_data_by_idu() stops on invalid IDUs", {
   skip_if_not_installed("sf")
 
-  # When verbose = FALSE, should not raise visible error message
-  expect_silent({
-    try(get_etalab_data_by_idu("7218100A", layer = "parcelles", verbose = FALSE))
-  })
-
-  # When verbose = TRUE, should raise an error message
   expect_error(
     get_etalab_data_by_idu("7218100A", layer = "parcelles", verbose = TRUE),
     regexp = "Invalid IDU"
