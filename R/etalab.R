@@ -3,7 +3,8 @@
 #'
 #' Returns the names of Etalab layers for the requested type(s).
 #'
-#' @param type `character`. Etalab data type. Must be one or more of `"raw"` or `"proc"`.
+#' @param type `character`. Etalab data type.
+#' Must be one or more of `"raw"` or `"proc"`.
 #' `"raw"` corresponds to raw Etalab layers.
 #' `"proc"` to processed layers.
 #' Default is `c("raw", "proc")`.
@@ -44,7 +45,8 @@ get_etalab_layernames <- function(type = c("raw", "proc")) {
 
 #' Validate Etalab layers
 #'
-#' Checks whether the requested Etalab cadastre layers exist among the known raw and processed layers.
+#' Checks whether the requested Etalab cadastre layers exist among
+#' the known raw and processed layers.
 #'
 #' @param data `character`. Vector of layer Etalab names to validate.
 #'
@@ -97,7 +99,8 @@ check_etalab_data <- function(data, type = c("raw", "proc")) {
 ### Arg section ----
 #' Generate Commune-Layer Pairs for Etalab Data
 #'
-#' Generates a data.frame of commune-layer pairs to facilitate Etalab data queries.
+#' Generates a data.frame of commune-layer pairs to facilitate Etalab
+#' data queries.
 #'
 #' @param commune `character` vector. The INSEE code(s) of the commune(s).
 #' @param data `character` vector or `list`.
@@ -148,7 +151,8 @@ get_etalab_arg_pairs <- function(commune, data, verbose = TRUE) {
 #' This internal function constructs URLs for Etalab cadastre data
 #' given a set of commune codes and requested layers.
 #'
-#' @param commune `character` or `numeric` vector. The INSEE code(s) of the commune(s).
+#' @param commune `character` or `numeric` vector.
+#' The INSEE code(s) of the commune(s).
 #' @param data `character` vector or `list`.
 #' If `character`, a vector of layers will be paired with all communes (Cartesian product).
 #' If `list`, each element corresponds to a vector of layers for the matching commune.
@@ -196,7 +200,7 @@ get_etalab_urls <- function(commune,
     base <- construct_data_url("etalab", commune, millesime)
     if (dt == "raw") base <- file.path(base, "raw")
     all_links <- detect_urls(base, absolute = TRUE)
-    pattern <- paste0("^.*/", ifelse(dt=="proc","cadastre","pci"), "-[0-9]+-", layer, "\\.json\\.gz$")
+    pattern <- paste0("^.*/", ifelse(dt == "proc", "cadastre", "pci"), "-[0-9]+-", layer, "\\.json\\.gz$")
     all_links[grepl(pattern, all_links)]
   }
 
@@ -206,16 +210,19 @@ get_etalab_urls <- function(commune,
 #' Download and read Etalab raw datasets from server
 #'
 #' This function downloads Etalab cadastre data for given communes
-#' and layers, extracts the archives, and reads the GeoJSON files into `sf` objects.
+#' and layers, extracts the archives, and reads the GeoJSON files
+#' into `sf` objects.
 #'
-#' @param commune `character` or `numeric` vector. The INSEE code(s) of the commune(s).
+#' @param commune `character` or `numeric` vector.
+#' The INSEE code(s) of the commune(s).
 #' @param data `character` vector or `list`.
 #' If `character`, a vector of layers will be paired with all communes (Cartesian product).
 #' If `list`, each element corresponds to a vector of layers for the matching commune.
 #' Must be dataset names returned by [get_etalab_layernames()].
 #' @param millesime `character`. The version or millesime of the dataset.
 #' Must be on of `get_data_millesimes("etalab")`. Default is `"latest"`.
-#' @param extract_dir `character` or `NULL`. Directory where files will be downloaded and extracted.
+#' @param extract_dir `character` or `NULL`.
+#' Directory where files will be downloaded and extracted.
 #' If `NULL`, a temporary directory is used.
 #' @param verbose `logical`. If `TRUE`, prints progress messages.
 #'
@@ -237,10 +244,10 @@ get_etalab_urls <- function(commune,
 #' @export
 #'
 get_etalab_raw <- function(commune,
-                            data,
-                            millesime = "latest",
-                            extract_dir = NULL,
-                            verbose = TRUE) {
+                           data,
+                           millesime = "latest",
+                           extract_dir = NULL,
+                           verbose = TRUE) {
 
   # 1. Generate URLs
   urls <- get_etalab_urls(commune, data, millesime, verbose = verbose)
@@ -282,14 +289,15 @@ get_etalab_raw <- function(commune,
 
 #' Download Etalab processed datasets from "bundle" app
 #'
-#' This function downloads one or several dataset layer (e.g., `"parcelles"`) for
-#' one or several INSEE identifiers (department or commune) using the Etalab
+#' This function downloads one or several dataset layer (e.g., `"parcelles"`)
+#' for one or several INSEE identifiers (department or commune) using the Etalab
 #' "bundle" cadastre.data.gouv.
 #' The results are returned as an `sf` object. If multiple files are retrieved
 #' (e.g. several communes or layers), they are combined into a single `sf`
 #' objects list.
 #'
-#' @param id `character` or `numeric` vector. The INSEE code(s) of the commune(s) or department(s).
+#' @param id `character` or `numeric` vector.
+#' The INSEE code(s) of the commune(s) or department(s).
 #' @param data `character` vector or `list`.
 #' If `character`, a vector of layers will be paired with all communes (Cartesian product).
 #' If `list`, each element corresponds to a vector of layers for the matching commune.
@@ -375,4 +383,3 @@ get_etalab <- function(id, data = "parcelles", verbose = TRUE) {
   # 8. Aggregate layers by name (combine multiple communes for the same layer)
   aggregate_sf_by_layer(sf_list, names_list)
 }
-

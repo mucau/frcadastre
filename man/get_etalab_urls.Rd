@@ -7,7 +7,8 @@
 get_etalab_urls(commune, data, millesime = "latest", verbose = TRUE)
 }
 \arguments{
-\item{commune}{\code{character} or \code{numeric} vector. The INSEE code(s) of the commune(s).}
+\item{commune}{\code{character} or \code{numeric} vector.
+The INSEE code(s) of the commune(s).}
 
 \item{data}{\code{character} vector or \code{list}.
 If \code{character}, a vector of layers will be paired with all communes (Cartesian product).

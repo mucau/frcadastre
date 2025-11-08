@@ -13,7 +13,8 @@ get_etalab_raw(
 )
 }
 \arguments{
-\item{commune}{\code{character} or \code{numeric} vector. The INSEE code(s) of the commune(s).}
+\item{commune}{\code{character} or \code{numeric} vector.
+The INSEE code(s) of the commune(s).}
 
 \item{data}{\code{character} vector or \code{list}.
 If \code{character}, a vector of layers will be paired with all communes (Cartesian product).
@@ -23,7 +24,8 @@ Must be dataset names returned by \code{\link[=get_etalab_layernames]{get_etalab
 \item{millesime}{\code{character}. The version or millesime of the dataset.
 Must be on of \code{get_data_millesimes("etalab")}. Default is \code{"latest"}.}
 
-\item{extract_dir}{\code{character} or \code{NULL}. Directory where files will be downloaded and extracted.
+\item{extract_dir}{\code{character} or \code{NULL}.
+Directory where files will be downloaded and extracted.
 If \code{NULL}, a temporary directory is used.}
 
 \item{verbose}{\code{logical}. If \code{TRUE}, prints progress messages.}
@@ -35,7 +37,8 @@ If no valid data is retrieved, the function returns \code{NULL} with a warning.
 }
 \description{
 This function downloads Etalab cadastre data for given communes
-and layers, extracts the archives, and reads the GeoJSON files into \code{sf} objects.
+and layers, extracts the archives, and reads the GeoJSON files
+into \code{sf} objects.
 }
 \examples{
 \dontrun{

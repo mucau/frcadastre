@@ -307,53 +307,6 @@ idu_rename_in_df <- function(df, new_name) {
 }
 
 ### Get attribut IDU section ----
-#' Retrieve Etalab cadastral data for given IDUs
-#'
-#' This internal function validates and processes one or more cadastral parcel
-#' identifiers (IDUs), extracts the corresponding INSEE commune codes, and
-#' retrieves the matching cadastral data from Etalab.
-#'
-#' @param idu A character vector of IDU codes (14-character format).
-#'   All codes are validated before data retrieval.
-#' @param layer A character vector of layers to retrieve.
-#' @param verbose Logical. If `TRUE`, prints progress messages during data retrieval.
-#'
-#' @return
-#' The cadastral data retrieved from Etalab for the communes
-#' corresponding to the provided IDUs.
-#' The return type depends on `get_etalab()`:
-#' typically an `sf` or `data.frame` object.
-#'
-#' @details
-#' This function ensures that all provided IDUs are valid using [idu_check()],
-#' extracts their components via [idu_split()], and determines the relevant
-#' INSEE commune codes to pass to [get_etalab()].
-#'
-#' @examples
-#' \dontrun{
-#' # Retrieve data for a single IDU
-#' get_etalab_raw_by_idu("72181000AB0001")
-#'
-#' # Retrieve data for multiple IDUs within the same commune
-#' get_etalab_raw_by_idu(
-#'   c("72181000AB0001", "72181000AB0002"),
-#'   layer = "parcelles"
-#' )
-#' }
-#'
-#' @keywords internal
-#'
-get_etalab_raw_by_idu <- function(idu,
-                                   layer,
-                                   verbose = TRUE) {
-  idu_check(idu)
-  idu_parts <- idu_split(idu)
-  insee_codes <- unique(idu_parts$insee)
-
-  res <- get_etalab(insee_codes, layer, verbose = verbose)
-  res
-}
-
 #' Retrieve cadastral sheets IDs for given IDUs
 #'
 #' This internal function retrieves the cadastral sheet (feuille) IDs associated with
@@ -384,10 +337,12 @@ get_etalab_raw_by_idu <- function(idu,
 #'
 idu_get_feuille <- function(idu, result_as_list = FALSE) {
   # Retrieve Etalab data
-  res <- get_etalab_raw_by_idu(idu, "feuilles")
+  idu_check(idu)
+  idu_parts <- idu_split(idu)
+  insee_codes <- unique(idu_parts$insee)
+  feuilles <- get_etalab(insee_codes, "feuilles", verbose = TRUE)
 
   # Extract feuille codes
-  feuilles <- res$data
   feuilles$codes <- substr(feuilles$id, 1, 10)
 
   # Filter only the relevant feuilles
@@ -396,10 +351,10 @@ idu_get_feuille <- function(idu, result_as_list = FALSE) {
 
   if (result_as_list) {
     # Create named list: names = insee codes, values = feuille IDs
-    feuilles_list <- lapply(unique(res$idu_parts$insee), function(code) {
+    feuilles_list <- lapply(unique(idu_parts$insee), function(code) {
       selected$id[selected$commune == code]
     })
-    names(feuilles_list) <- unique(res$idu_parts$insee)
+    names(feuilles_list) <- unique(idu_parts$insee)
     return(feuilles_list)
   } else {
     selected$id

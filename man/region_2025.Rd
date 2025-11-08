@@ -22,6 +22,7 @@ A data frame with 5 columns:
 region_2025
 }
 \description{
-A dataset containing information about French regions, including their codes and names.
+A dataset containing information about French regions,
+including their codes and names.
 }
 \keyword{datasets}

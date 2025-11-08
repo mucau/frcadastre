@@ -93,9 +93,9 @@ url_exists <- function(url) {
 #' @return Path to extraction directory, or NULL if failed
 #' @keywords internal
 download_archive <- function(url,
-                              destfile = NULL,
-                              extract_dir = NULL,
-                              verbose = TRUE) {
+                             destfile = NULL,
+                             extract_dir = NULL,
+                             verbose = TRUE) {
   # 1. Check URL
   if (!url_exists(url)) {
     log_warn(verbose, sprintf("URL not reachable: %s", url))
@@ -141,10 +141,10 @@ download_archive <- function(url,
 #' @return List of extraction paths
 #' @keywords internal
 download_archives <- function(urls,
-                               destfiles = NULL,
-                               extract_dir = NULL,
-                               use_subdirs = FALSE,
-                               verbose = TRUE) {
+                              destfiles = NULL,
+                              extract_dir = NULL,
+                              use_subdirs = FALSE,
+                              verbose = TRUE) {
 
   if (is.null(destfiles)) destfiles <- rep(NA_character_, length(urls))
   if (is.null(extract_dir)) extract_dir <- tempdir()

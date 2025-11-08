@@ -8,13 +8,13 @@ test_that("idu_get_parcelle() works offline with mocked dependencies", {
 
   fake_parcelles <- sf::st_sf(
     idu = fake_idus,
-    geometry = sf::st_sfc(sf::st_point(c(1,1)), sf::st_point(c(2,2)))
+    geometry = sf::st_sfc(sf::st_point(c(1, 1)), sf::st_point(c(2, 2)))
   )
 
   fake_lieudits <- sf::st_sf(
     idu = fake_idus,
     nom = c("Lieu1", "Lieu2"),
-    geometry = sf::st_sfc(sf::st_point(c(1,1)), sf::st_point(c(2,2)))
+    geometry = sf::st_sfc(sf::st_point(c(1, 1)), sf::st_point(c(2, 2)))
   )
 
   fake_names <- data.frame(

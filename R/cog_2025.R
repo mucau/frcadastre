@@ -1,6 +1,7 @@
 #' French Communes Data
 #'
-#' A dataset containing information about French communes, including their codes, types, and names.
+#' A dataset containing information about French communes,
+#' including their codes, types, and names.
 #'
 #' @format A data frame with 12 columns:
 #' \describe{
@@ -23,7 +24,8 @@
 
 #' French Departments Data
 #'
-#' A dataset containing information about French departments, including their codes and names.
+#' A dataset containing information about French departments,
+#' including their codes and names.
 #'
 #' @format A data frame with 6 columns:
 #' \describe{
@@ -41,7 +43,8 @@
 
 #' French Regions Data
 #'
-#' A dataset containing information about French regions, including their codes and names.
+#' A dataset containing information about French regions,
+#' including their codes and names.
 #'
 #' @format A data frame with 5 columns:
 #' \describe{

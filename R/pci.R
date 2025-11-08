@@ -42,9 +42,9 @@ get_pci_feuilles <- function(commune,
   # Build URLs and detect available sheets
   links <- detect_urls(
     construct_data_url(site = "pci",
-                        commune = commune,
-                        millesime = millesime,
-                        format = format),
+                       commune = commune,
+                       millesime = millesime,
+                       format = format),
     absolute
   )
 
@@ -117,8 +117,7 @@ get_pci_urls <- function(x,
       detect_urls(construct_data_url(site = "pci",
                                      code,
                                      millesime = millesime,
-                                     format = format),
-                   absolute = TRUE)
+                                     format = format), absolute = TRUE)
     } else {
       # Feuille
       commune <- substr(code, 1, 5)
@@ -172,10 +171,10 @@ get_pci_urls <- function(x,
 #' @export
 #'
 get_pci_raw <- function(x,
-                         millesime = "latest",
-                         format = "edigeo",
-                         extract_dir = NULL,
-                         verbose = TRUE) {
+                        millesime = "latest",
+                        format = "edigeo",
+                        extract_dir = NULL,
+                        verbose = TRUE) {
 
   millesime <- match.arg(millesime, get_data_millesimes("pci"))
   format    <- match.arg(format, c("edigeo", "dxf"))

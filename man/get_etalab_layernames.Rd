@@ -7,7 +7,8 @@
 get_etalab_layernames(type = c("raw", "proc"))
 }
 \arguments{
-\item{type}{\code{character}. Etalab data type. Must be one or more of \code{"raw"} or \code{"proc"}.
+\item{type}{\code{character}. Etalab data type.
+Must be one or more of \code{"raw"} or \code{"proc"}.
 \code{"raw"} corresponds to raw Etalab layers.
 \code{"proc"} to processed layers.
 Default is \code{c("raw", "proc")}.}

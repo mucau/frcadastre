@@ -3,7 +3,8 @@
 #'
 #' This function returns the base URL for a given cadastre.data.gouv site.
 #'
-#' @param site `character`. The cadastre site to use. Must be one of `"pci"` or `"etalab"`.
+#' @param site `character`. The cadastre site to use.
+#' Must be one of `"pci"` or `"etalab"`.
 #'
 #' @return A single character string representing the base URL for the requested site.
 #'
@@ -43,10 +44,12 @@ get_base_data_url <- function(site) {
 
 #' Construct the Full Data URL for cadastre.data.gouv
 #'
-#' This function builds the complete URL to access cadastre data for a given cadastre.data.gouv site,
-#' commune, and millesime. The function handles default formats and scales for each site.
+#' This function builds the complete URL to access cadastre data for a
+#' given cadastre.data.gouv site, commune, and millesime.
+#' The function handles default formats and scales for each site.
 #'
-#' @param site `character`. The cadastre site to use. Must be one of `"pci"` or `"etalab"`.
+#' @param site `character`. The cadastre site to use.
+#' Must be one of `"pci"` or `"etalab"`.
 #' @param commune `character` vector. The INSEE code(s) of the commune(s).
 #' @param millesime `character`. The version or millesime of the dataset.
 #' Must be on of `get_data_millesimes("pci")`. Default is `"latest"`.
@@ -195,9 +198,11 @@ detect_urls <- function(url, absolute = TRUE) {
 
 #' Detect available years (millesimes)
 #'
-#' Retrieves and returns the list of available "millesimes" (year directories) from a specified data site.
+#' Retrieves and returns the list of available "millesimes" (year directories)
+#' from a specified data site.
 #'
-#' @param site `character`. The cadastre site to use. Must be one of `"pci"` or `"etalab"`.
+#' @param site `character`. The cadastre site to use.
+#' Must be one of `"pci"` or `"etalab"`.
 #'
 #' @return A `character` vector of unique year identifiers (millesimes) found on the site.
 #'
@@ -222,20 +227,21 @@ get_data_millesimes <- function(site) {
 #' Detect and validate INSEE code (city or department)
 #'
 #' Checks if the provided INSEE code(s) are valid among communes or departments.
-#' Optionally returns the administrative scale ("communes" or "departements") for each code.
+#' Optionally returns the administrative scale ("communes" or "departements")
+#' for each code.
 #'
 #' @param x `character` or `numeric`. Vector of INSEE codes to validate.
-#' @param scale_as_return `logical`. If `TRUE`, returns a character vector indicating
-#' the detected scale ("communes" or "departements") for each code.
+#' @param scale_as_return `logical`. If `TRUE`, returns a character vector
+#' indicating the detected scale ("communes" or "departements") for each code.
 #' @param verbose `logical`. If `TRUE`, prints informative messages for each code.
 #'
-#' @return If `scale_as_return = TRUE`, a character vector of length `length(x)` with
-#' values `"communes"` or `"departements"`. If `scale_as_return = FALSE`, returns
-#' invisibly `NULL`.
+#' @return If `scale_as_return = TRUE`, a character vector of length `length(x)`
+#' with values `"communes"` or `"departements"`. If `scale_as_return = FALSE`,
+#' returns invisibly `NULL`.
 #'
 #' @details
-#' The function accepts either 5-character INSEE codes for communes or 2-3 character
-#' codes for departments. Invalid codes trigger an error.
+#' The function accepts either 5-character INSEE codes for communes or 2-3
+#' character codes for departments. Invalid codes trigger an error.
 #'
 #' @examples
 #' \dontrun{
@@ -272,8 +278,8 @@ insee_check <- function(x, scale_as_return = FALSE, verbose = TRUE) {
       log_msg(verbose, sprintf("Commune '%s' = '%s' selected", code, communes$NCCENR[idx]))
       if (scale_as_return) scales_detected[i] <- "communes"
 
-    } else if (nchar(code) %in% c(2,3)) {
-      # Département
+    } else if (nchar(code) %in% c(2, 3)) {
+      # Department
       idx <- which(departements$DEP == code)
       if (length(idx) == 0) stop(sprintf("Department '%s' not found. Run frcadastre::departement_2025", code))
       log_msg(verbose, sprintf("Department '%s' = '%s' selected", code, departements$LIBELLE[idx]))

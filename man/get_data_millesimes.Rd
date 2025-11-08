@@ -7,13 +7,15 @@
 get_data_millesimes(site)
 }
 \arguments{
-\item{site}{\code{character}. The cadastre site to use. Must be one of \code{"pci"} or \code{"etalab"}.}
+\item{site}{\code{character}. The cadastre site to use.
+Must be one of \code{"pci"} or \code{"etalab"}.}
 }
 \value{
 A \code{character} vector of unique year identifiers (millesimes) found on the site.
 }
 \description{
-Retrieves and returns the list of available "millesimes" (year directories) from a specified data site.
+Retrieves and returns the list of available "millesimes" (year directories)
+from a specified data site.
 }
 \details{
 The function queries the base data URL for the specified site and extracts

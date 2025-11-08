@@ -7,7 +7,8 @@
 get_etalab(id, data = "parcelles", verbose = TRUE)
 }
 \arguments{
-\item{id}{\code{character} or \code{numeric} vector. The INSEE code(s) of the commune(s) or department(s).}
+\item{id}{\code{character} or \code{numeric} vector.
+The INSEE code(s) of the commune(s) or department(s).}
 
 \item{data}{\code{character} vector or \code{list}.
 If \code{character}, a vector of layers will be paired with all communes (Cartesian product).
@@ -21,8 +22,8 @@ An \code{sf} object if a single layer is retrieved, or a named list of \code{sf}
 objects if multiple layers are retrieved.
 }
 \description{
-This function downloads one or several dataset layer (e.g., \code{"parcelles"}) for
-one or several INSEE identifiers (department or commune) using the Etalab
+This function downloads one or several dataset layer (e.g., \code{"parcelles"})
+for one or several INSEE identifiers (department or commune) using the Etalab
 "bundle" cadastre.data.gouv.
 The results are returned as an \code{sf} object. If multiple files are retrieved
 (e.g. several communes or layers), they are combined into a single \code{sf}

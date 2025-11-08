@@ -14,7 +14,8 @@ check_etalab_data(data, type = c("raw", "proc"))
 Throws an error if any layer in \code{data} is invalid.
 }
 \description{
-Checks whether the requested Etalab cadastre layers exist among the known raw and processed layers.
+Checks whether the requested Etalab cadastre layers exist among
+the known raw and processed layers.
 }
 \details{
 \itemize{
