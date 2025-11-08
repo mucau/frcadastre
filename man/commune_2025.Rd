@@ -28,6 +28,7 @@ A data frame with 12 columns:
 commune_2025
 }
 \description{
-A dataset containing information about French communes, including their codes, types, and names.
+A dataset containing information about French communes,
+including their codes, types, and names.
 }
 \keyword{datasets}

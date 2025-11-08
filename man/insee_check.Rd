@@ -9,23 +9,24 @@ insee_check(x, scale_as_return = FALSE, verbose = TRUE)
 \arguments{
 \item{x}{\code{character} or \code{numeric}. Vector of INSEE codes to validate.}
 
-\item{scale_as_return}{\code{logical}. If \code{TRUE}, returns a character vector indicating
-the detected scale ("communes" or "departements") for each code.}
+\item{scale_as_return}{\code{logical}. If \code{TRUE}, returns a character vector
+indicating the detected scale ("communes" or "departements") for each code.}
 
 \item{verbose}{\code{logical}. If \code{TRUE}, prints informative messages for each code.}
 }
 \value{
-If \code{scale_as_return = TRUE}, a character vector of length \code{length(x)} with
-values \code{"communes"} or \code{"departements"}. If \code{scale_as_return = FALSE}, returns
-invisibly \code{NULL}.
+If \code{scale_as_return = TRUE}, a character vector of length \code{length(x)}
+with values \code{"communes"} or \code{"departements"}. If \code{scale_as_return = FALSE},
+returns invisibly \code{NULL}.
 }
 \description{
 Checks if the provided INSEE code(s) are valid among communes or departments.
-Optionally returns the administrative scale ("communes" or "departements") for each code.
+Optionally returns the administrative scale ("communes" or "departements")
+for each code.
 }
 \details{
-The function accepts either 5-character INSEE codes for communes or 2-3 character
-codes for departments. Invalid codes trigger an error.
+The function accepts either 5-character INSEE codes for communes or 2-3
+character codes for departments. Invalid codes trigger an error.
 }
 \examples{
 \dontrun{

@@ -23,7 +23,8 @@ A \code{data.frame} with columns:
 }
 }
 \description{
-Generates a data.frame of commune-layer pairs to facilitate Etalab data queries.
+Generates a data.frame of commune-layer pairs to facilitate Etalab
+data queries.
 }
 \details{
 \itemize{

@@ -63,7 +63,7 @@ parcelles <- get_etalab(id = "72187", data = "parcelles") # 'Marigne-Laille' for
 
 tm_shape(communes) +
   tm_polygons(border.col = "red", alpha = 0.5) +
-tm_shape(parcelles) +
+  tm_shape(parcelles) +
   tm_polygons(col = "blue", alpha = 0.1)
 
 ```
@@ -103,13 +103,12 @@ borne    <- get_etalab_data(commune = "72187", data = "borne")
 
 tm_shape(commune) +
   tm_polygons(border.col = "red", fill_alpha = 0.5) +
-tm_shape(parcelles) +
+  tm_shape(parcelles) +
   tm_polygons(border.col = "blue", fill_alpha = 0.05) +
-tm_shape(batiment) +
+  tm_shape(batiment) +
   tm_polygons(fill = "yellow") +
-tm_shape(borne) +
-  tm_dots(col = "blue", size = 0.5, fill_alpha = 1) 
-
+  tm_shape(borne) +
+  tm_dots(col = "blue", size = 0.5, fill_alpha = 1)
 ```
 
 ## PCI data
@@ -178,5 +177,4 @@ data(commune_2025)
 
 # Inspect
 head(commune_2025)
-
 ```

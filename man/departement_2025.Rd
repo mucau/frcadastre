@@ -23,6 +23,7 @@ A data frame with 6 columns:
 departement_2025
 }
 \description{
-A dataset containing information about French departments, including their codes and names.
+A dataset containing information about French departments,
+including their codes and names.
 }
 \keyword{datasets}

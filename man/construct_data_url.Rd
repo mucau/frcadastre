@@ -7,7 +7,8 @@
 construct_data_url(site, commune, millesime = "latest", format = NULL)
 }
 \arguments{
-\item{site}{\code{character}. The cadastre site to use. Must be one of \code{"pci"} or \code{"etalab"}.}
+\item{site}{\code{character}. The cadastre site to use.
+Must be one of \code{"pci"} or \code{"etalab"}.}
 
 \item{commune}{\code{character} vector. The INSEE code(s) of the commune(s).}
 
@@ -22,8 +23,9 @@ For "etalab", the default is "geojson".}
 A character vector of full URLs for the requested site, commune(s), and millesime.
 }
 \description{
-This function builds the complete URL to access cadastre data for a given cadastre.data.gouv site,
-commune, and millesime. The function handles default formats and scales for each site.
+This function builds the complete URL to access cadastre data for a
+given cadastre.data.gouv site, commune, and millesime.
+The function handles default formats and scales for each site.
 }
 \details{
 The function validates the site and commune codes.

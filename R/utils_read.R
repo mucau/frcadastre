@@ -35,10 +35,10 @@ read_dxf <- function(path) {
   # Try to aggregate all layers into a single sf object
   tryCatch({
     aggregated <- do.call(rbind, layers)
-    return(aggregated)
+    aggregated
   }, error = function(e) {
     warning("Failed to aggregate DXF files: ", e$message)
-    return(layers)
+    layers
   })
 }
 
@@ -123,7 +123,7 @@ read_edigeo <- function(edigeo_dir) {
     final_layers[[nm]] <- layers_aggregated[[nm]]
   }
 
-  return(final_layers)
+  final_layers
 }
 
 # Etalab section ----

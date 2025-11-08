@@ -54,4 +54,3 @@ test_that("idu_check throws error when NA or empty string", {
   expect_error(idu_check(NA), "Invalid IDU")
   expect_error(idu_check(""), "Invalid IDU")
 })
-

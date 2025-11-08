@@ -7,7 +7,8 @@
 get_base_data_url(site)
 }
 \arguments{
-\item{site}{\code{character}. The cadastre site to use. Must be one of \code{"pci"} or \code{"etalab"}.}
+\item{site}{\code{character}. The cadastre site to use.
+Must be one of \code{"pci"} or \code{"etalab"}.}
 }
 \value{
 A single character string representing the base URL for the requested site.

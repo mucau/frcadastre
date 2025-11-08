@@ -46,4 +46,3 @@ test_that("get_etalab_arg_pairs works with lists for multiple communes", {
   expect_s3_class(res, "data.frame")
   expect_equal(nrow(res), 3) # 2 + 1 layers
 })
-
