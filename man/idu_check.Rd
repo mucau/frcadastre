@@ -4,13 +4,18 @@
 \alias{idu_check}
 \title{Check if a vector contains valid IDUs}
 \usage{
-idu_check(x)
+idu_check(x, error = TRUE)
 }
 \arguments{
-\item{x}{A character vector containing IDU codes to validate.}
+\item{x}{A \code{character} vector containing IDU codes to validate.}
+
+\item{error}{\code{logical} (default = \code{TRUE}).
+If \code{TRUE}, the function stops when invalid IDUs are detected.
+If \code{FALSE}, it returns a logical vector with a warning listing invalid IDUs.}
 }
 \value{
-Invisibly returns \code{TRUE} if all IDUs are valid; otherwise, stops with an error.
+A logical vector indicating which elements of \code{x} are valid IDUs.
+When \code{error = TRUE}, the function stops on invalid entries.
 }
 \description{
 This function checks whether a character vector contains valid INSEE
@@ -37,8 +42,11 @@ idu_check("01001000AA0123")
 # Multiple values
 idu_check(c("01001000AA0123", "AB12300000A0123"))
 
-# Invalid example (will throw an error)
+# Strict check (default): stops if invalid IDUs are found
 idu_check(c("01001000AA0123", "12345"))
+
+# Non-strict check: returns logical vector and warns
+idu_check(c("01001000AA0123", "12345"), error = FALSE)
 }
 
 }
