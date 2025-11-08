@@ -164,7 +164,10 @@ idu_split <- function(idu) {
 #' cadastral parcel identifiers (IDUs). It can either return a logical
 #' vector indicating validity or raise an error if invalid entries are found.
 #'
-#' @param x A character vector containing IDU codes to validate.
+#' @param x A `character` vector containing IDU codes to validate.
+#' @param error `logical` (default = `TRUE`).
+#' If `TRUE`, the function stops when invalid IDUs are detected.
+#' If `FALSE`, it returns a logical vector with a warning listing invalid IDUs.
 #'
 #' @details
 #' A valid IDU (INSEE cadastral identifier) must satisfy all of the following:
@@ -179,7 +182,8 @@ idu_split <- function(idu) {
 #' }
 #'
 #' @return
-#' Invisibly returns `TRUE` if all IDUs are valid; otherwise, stops with an error.
+#' A logical vector indicating which elements of `x` are valid IDUs.
+#' When `error = TRUE`, the function stops on invalid entries.
 #'
 #' @examples
 #' \dontrun{
@@ -189,26 +193,31 @@ idu_split <- function(idu) {
 #' # Multiple values
 #' idu_check(c("01001000AA0123", "AB12300000A0123"))
 #'
-#' # Invalid example (will throw an error)
+#' # Strict check (default): stops if invalid IDUs are found
 #' idu_check(c("01001000AA0123", "12345"))
+#'
+#' # Non-strict check: returns logical vector and warns
+#' idu_check(c("01001000AA0123", "12345"), error = FALSE)
 #' }
 #'
 #' @export
 #'
-idu_check <- function(x) {
+idu_check <- function(x, error = TRUE) {
   x <- as.character(x)
   pattern <- "^[0-9AB]{2}[0-9]{3}[0-9]{3}[0-9A-Z]{2}[0-9]{4}$"
   valid <- !is.na(x) & x != "" & nchar(x) == 14 & grepl(pattern, x)
 
   if (!all(valid)) {
-    stop(
-      "Invalid IDU(s) detected: ",
-      paste(x[!valid], collapse = ", "),
-      call. = FALSE
-    )
+    invalids <- paste(x[!valid], collapse = ", ")
+
+    if (error) {
+      stop("Invalid IDU(s) detected: ", invalids, call. = FALSE)
+    } else {
+      warning("Invalid IDU(s) detected: ", invalids, call. = FALSE)
+    }
   }
 
-  invisible(TRUE)
+  return(valid)
 }
 
 ### Manage IDU field in df section ----

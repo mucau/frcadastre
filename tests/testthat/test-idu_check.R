@@ -1,9 +1,10 @@
-test_that("idu_check returns TRUE invisibly when all IDUs are valid", {
+test_that("idu_check returns logical TRUE vector when all IDUs are valid", {
   idus <- c("721870000A0001", "971020000B0002")
-  expect_invisible(idu_check(idus))
+  result <- idu_check(idus)
+  expect_true(all(result))
 })
 
-test_that("idu_check throws an error for a single invalid IDU", {
+test_that("idu_check throws an error for a single invalid IDU (default error = TRUE)", {
   expect_error(
     idu_check("invalidIDU"),
     "Invalid IDU"
@@ -31,7 +32,8 @@ test_that("idu_check correctly identifies valid formats", {
     "971020000B0002", # department 97X
     "012340000Z9999"  # section letter Z
   )
-  expect_invisible(idu_check(valid_idus))
+  result <- idu_check(valid_idus)
+  expect_true(all(result))
 })
 
 test_that("idu_check flags invalid formats correctly", {
@@ -47,10 +49,25 @@ test_that("idu_check flags invalid formats correctly", {
 })
 
 test_that("idu_check handles single valid IDU without error", {
-  expect_invisible(idu_check("721870000A0001"))
+  expect_true(all(idu_check("721870000A0001")))
 })
 
 test_that("idu_check throws error when NA or empty string", {
   expect_error(idu_check(NA), "Invalid IDU")
   expect_error(idu_check(""), "Invalid IDU")
+})
+
+test_that("idu_check returns logical vector with warning when error = FALSE", {
+  idus <- c("721870000A0001", "invalid")
+  expect_warning(
+    result <- idu_check(idus, error = FALSE),
+    "Invalid IDU"
+  )
+  expect_equal(result, c(TRUE, FALSE))
+})
+
+test_that("idu_check with error = FALSE returns all TRUE for valid input", {
+  idus <- c("721870000A0001", "971020000B0002")
+  expect_silent(result <- idu_check(idus, error = FALSE))
+  expect_true(all(result))
 })
