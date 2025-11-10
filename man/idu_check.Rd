@@ -4,12 +4,12 @@
 \alias{idu_check}
 \title{Check if a vector contains valid IDUs}
 \usage{
-idu_check(x, error = TRUE)
+idu_check(x, error = FALSE)
 }
 \arguments{
 \item{x}{A \code{character} vector containing IDU codes to validate.}
 
-\item{error}{\code{logical} (default = \code{TRUE}).
+\item{error}{\code{logical} (default = \code{FALSE}).
 If \code{TRUE}, the function stops when invalid IDUs are detected.
 If \code{FALSE}, it returns a logical vector with a warning listing invalid IDUs.}
 }

@@ -14,7 +14,7 @@ test_that("idu_get_feuille() works offline with mocked dependencies", {
   )
 
   with_mocked_bindings(
-    idu_check  = function(idu) TRUE,
+    idu_check  = function(idu, error = TRUE) TRUE,
     idu_split  = function(idu) fake_parts,
     get_etalab = function(insee_codes, layer = NULL, ...) fake_feuilles,
     {

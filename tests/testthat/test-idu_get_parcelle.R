@@ -24,7 +24,7 @@ test_that("idu_get_parcelle() works offline with mocked dependencies", {
   )
 
   with_mocked_bindings(
-    idu_check = function(idu) TRUE,
+    idu_check = function(idu, error = TRUE) TRUE,
     idu_split  = function(idu) fake_parts,
     get_etalab = function(ids, layer = NULL, ...) {
       if (!is.null(layer) && layer == "lieux_dits") fake_lieudits else fake_parcelles
