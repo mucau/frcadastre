@@ -78,7 +78,7 @@ idu_build <- function(dep, com, prefix, section, numero) {
 
   # Build and validate IDUs
   idu <- paste0(commune, prefix, section, numero)
-  valid <- idu_check(idu)
+  valid <- idu_check(idu, error = TRUE)
   if (!all(valid)) {
     stop("Invalid IDU(s) generated: ", paste(idu[!valid], collapse = ", "), call. = FALSE)
   }
@@ -121,7 +121,7 @@ idu_build <- function(dep, com, prefix, section, numero) {
 #' @export
 #'
 idu_split <- function(idu) {
-  idu_check(idu)
+  idu_check(idu, error = TRUE)
 
   # Extract first 2 and 3 characters (possible department codes)
   dep2 <- substr(idu, 1, 2)
@@ -165,7 +165,7 @@ idu_split <- function(idu) {
 #' vector indicating validity or raise an error if invalid entries are found.
 #'
 #' @param x A `character` vector containing IDU codes to validate.
-#' @param error `logical` (default = `TRUE`).
+#' @param error `logical` (default = `FALSE`).
 #' If `TRUE`, the function stops when invalid IDUs are detected.
 #' If `FALSE`, it returns a logical vector with a warning listing invalid IDUs.
 #'
@@ -202,19 +202,16 @@ idu_split <- function(idu) {
 #'
 #' @export
 #'
-idu_check <- function(x, error = TRUE) {
+idu_check <- function(x, error = FALSE) {
   x <- as.character(x)
   pattern <- "^[0-9AB]{2}[0-9]{3}[0-9]{3}[0-9A-Z]{2}[0-9]{4}$"
   valid <- !is.na(x) & x != "" & nchar(x) == 14 & grepl(pattern, x)
 
   if (!all(valid)) {
     invalids <- paste(x[!valid], collapse = ", ")
-
-    if (error) {
-      stop("Invalid IDU(s) detected: ", invalids, call. = FALSE)
-    } else {
-      warning("Invalid IDU(s) detected: ", invalids, call. = FALSE)
-    }
+    m <- paste0("Invalid IDU(s) detected: ", invalids)
+    if (error) stop(m, call. = FALSE)
+    warning(m, invalids, call. = FALSE)
   }
 
   return(valid)
@@ -265,7 +262,7 @@ idu_detect_in_df <- function(df, output = c("both", "name", "position")) {
 
     # Catch any error from idu_check()
     ok <- tryCatch({
-      idu_check(col)  # stops if invalid
+      idu_check(col, error = TRUE)  # stops if invalid
       TRUE
     }, error = function(e) FALSE)
 
@@ -346,7 +343,7 @@ idu_rename_in_df <- function(df, new_name) {
 #'
 idu_get_feuille <- function(idu, result_as_list = FALSE) {
   # Retrieve Etalab data
-  idu_check(idu)
+  idu_check(idu, error = TRUE)
   idu_parts <- idu_split(idu)
   insee_codes <- unique(idu_parts$insee)
   feuilles <- get_etalab(insee_codes, "feuilles", verbose = TRUE)
@@ -402,7 +399,7 @@ idu_get_cog <- function(idu, loc = c("reg", "dep", "com"), cog_field = "NCC") {
   cog_field <- match.arg(cog_field, c("NCC", "NCCENR", "LIBELLE"), several.ok = FALSE)
 
   # Validate IDUs
-  idu_check(idu)
+  idu_check(idu, error = TRUE)
 
   # Split IDU into components
   idu_parts <- idu_split(idu)
@@ -482,7 +479,7 @@ idu_get_cog <- function(idu, loc = c("reg", "dep", "com"), cog_field = "NCC") {
 #'
 idu_get_parcelle <- function(idu, with_lieudit = TRUE, with_cog = TRUE, ...) {
   # Validate IDUs
-  idu_check(idu)
+  idu_check(idu, error = TRUE)
 
   # Split IDU and extract unique INSEE codes
   idu_parts   <- idu_split(idu)
