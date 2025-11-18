@@ -402,35 +402,40 @@ idu_get_cog <- function(idu, loc = c("reg", "dep", "com"), cog_field = "NCC") {
 
   # Split IDU into components
   idu_parts <- idu_split(idu)
-
-  # Reference datasets
-  regs <- frcadastre::region_2025
-  deps <- frcadastre::departement_2025
-  coms <- frcadastre::commune_2025
-
   res <- idu_parts
 
   # Merge region names if requested
   if ("reg" %in% loc) {
-    res <- merge_with_name(res, deps, "code_dep", "DEP", "REG", "code_reg")
-    res <- merge_with_name(res, regs, "code_reg", "REG", cog_field, "reg_name")
+    res <- merge(res,
+                 frcadastre::departement_2025[, c("DEP", "REG")],
+                 by.x = "code_dep", by.y="DEP")
+    res <- merge(res,
+                 frcadastre::region_2025[, c("REG", cog_field)],
+                 by.x = "REG", by.y="REG")
+    names(res)[names(res) %in% c("REG", cog_field)] <- c("code_reg", "reg_name")
   }
 
   # Merge department names if requested
   if ("dep" %in% loc) {
-    res <- merge_with_name(res, deps, "code_dep", "DEP", cog_field, "dep_name")
+    res <- merge(res,
+                 frcadastre::departement_2025[, c("DEP", cog_field)],
+                 by.x = "code_dep", by.y="DEP")
+    names(res)[names(res) %in% c(cog_field)] <- c("dep_name")
   }
 
   # Merge commune names if requested
   if ("com" %in% loc) {
-    res <- merge_with_name(res, coms, "insee", "COM", cog_field, "com_name")
+    res <- merge(res,
+                 frcadastre::commune_2025[, c("COM", cog_field)],
+                 by.x = "insee", by.y="COM")
+    names(res)[names(res) %in% c("insee", cog_field)] <- c("code_com", "com_name")
   }
 
   # Keep only idu and requested name columns
   keep_cols <- c("idu")
-  if ("reg" %in% loc)   keep_cols <- c(keep_cols, "reg_name")
-  if ("dep" %in% loc)   keep_cols <- c(keep_cols, "dep_name")
-  if ("com" %in% loc)   keep_cols <- c(keep_cols, "com_name")
+  if ("reg" %in% loc)   keep_cols <- c(keep_cols, "code_reg", "reg_name")
+  if ("dep" %in% loc)   keep_cols <- c(keep_cols, "code_dep", "dep_name")
+  if ("com" %in% loc)   keep_cols <- c(keep_cols, "code_com", "com_name")
 
   res[, intersect(keep_cols, names(res)), drop = FALSE]
 }
@@ -485,7 +490,7 @@ idu_get_parcelle <- function(idu, with_lieudit = TRUE, with_cog = TRUE, ...) {
   insee_codes <- unique(idu_parts$insee)
 
   # Download parcels
-  parcelles <- get_etalab(insee_codes, verbose = TRUE) |>
+  parcelles <- get_etalab(insee_codes, verbose = FALSE) |>
     idu_rename_in_df("idu") |>
     subset(idu %in% idu_parts$idu)
 
@@ -513,28 +518,15 @@ idu_get_parcelle <- function(idu, with_lieudit = TRUE, with_cog = TRUE, ...) {
       }
 
       # Merge parcels with lieu-dit names
-      parcelles <- merge_with_name(
-        parcelles, intersections,
-        ref_x   = "idu",
-        ref_y   = "idu",
-        ini_col = "nom",
-        fin_col = "lieudit"
-      )
+      parcelles <- merge(parcelles, intersections[, c("idu", "nom")], by = "idu")
+      names(parcelles)[names(parcelles) == "nom"] <- "lieudit"
     }
   }
 
   # Retrieve parcel names if requested
   if (with_cog) {
     names_df <- idu_get_cog(idu, ...)
-    new_cols <- setdiff(names(names_df), "idu")
-
-    parcelles <- merge_with_name(
-      parcelles, names_df,
-      ref_x   = "idu",
-      ref_y   = "idu",
-      ini_col = new_cols,
-      fin_col = new_cols
-    )
+    parcelles <- merge(parcelles, names_df, by = "idu")
   }
 
   parcelles
