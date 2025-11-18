@@ -397,9 +397,6 @@ idu_get_cog <- function(idu, loc = c("reg", "dep", "com"), cog_field = "NCC") {
   loc <- match.arg(loc, c("reg", "dep", "com"), several.ok = TRUE)
   cog_field <- match.arg(cog_field, c("NCC", "NCCENR", "LIBELLE"), several.ok = FALSE)
 
-  # Validate IDUs
-  idu_check(idu, error = TRUE)
-
   # Split IDU into components
   idu_parts <- idu_split(idu)
 
