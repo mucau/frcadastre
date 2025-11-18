@@ -121,7 +121,6 @@ idu_build <- function(dep, com, prefix, section, numero) {
 #' @export
 #'
 idu_split <- function(idu) {
-  idu_check(idu, error = TRUE)
 
   # Extract first 2 and 3 characters (possible department codes)
   dep2 <- substr(idu, 1, 2)
