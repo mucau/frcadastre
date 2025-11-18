@@ -40,6 +40,10 @@ This function downloads Etalab cadastre data for given communes
 and layers, extracts the archives, and reads the GeoJSON files
 into \code{sf} objects.
 }
+\details{
+A detailed description of the data structure is available at the following link:
+\url{https://github.com/etalab/edigeo-parser/raw/master/resources/standard_edigeo_2013.pdf}
+}
 \examples{
 \dontrun{
 # Download and read parcels and lieux_dits for one commune
